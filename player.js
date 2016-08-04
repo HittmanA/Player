@@ -23,13 +23,17 @@ var drawBackground = function(ctx, w, h, step) {
 
 };
 
-var drawPlayer = function(x, y) {
+var clear = function() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+};
+
+var drawPlayer = function(x, y) {
     ctx.beginPath();
     ctx.arc(x,y,40,0,2*Math.PI,true);
     ctx.stroke();
 };
 
+clear();
 drawPlayer(0,0);
 drawBackground(ctx, width, height, step);
 
