@@ -1,39 +1,28 @@
-var canvas = document.getElementById('canvas');
-var ctx = canvas.getContext('2d');
-var width = canvas.width;
-var height = canvas.height;
-var step = 20; 
-var canvasElementId = 'canvas';
-var canvas = document.getElementById(canvasElementId);
-canvas.width  = w;
-canvas.height = h;
-var ctx = canvas.getContext('2d');
+var canvas = document.getElementById('canvas'); /*define canvas*/
+var ctx = canvas.getContext('2d'); /*make 2d canvas*/
+var fps=25; /*frames per seconds*/
+var sprites = []; /* An Array for all the sprites*/
+function Sprite(name, x, y,direction) {
+    this.name = name;
+    this.x = x;
+    this.y = y;
+    this.direction=direction;
+    this.walk = function(steps) { /*walking in the direction the sprite is facing*/
+        this.x=(this.x+(Math.sin(this.direction)*steps));/*x for walking*/
+        this.y=(this.y+(Math.cos(this.direction)*steps));/*y for walking*/
+        
+    };
+}
+/*
 
-var drawBackground = function(ctx, w, h, step) {
-    ctx.beginPath(); 
-    for (var x=0;x<=w;x+=step) {
-            ctx.moveTo(x, 0);
-            ctx.lineTo(x, h);
-    }
-    for (var y=0;y<=h;y+=step) {
-            ctx.moveTo(0, y);
-            ctx.lineTo(w, y);
-    }
-    ctx.stroke(); 
+Code to load users codes.
 
-};
+*/
 
-var clear = function() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-};
+onload();/*run onload(); which will be a user command.*/
 
-var drawPlayer = function(x, y) {
-    ctx.beginPath();
-    ctx.arc(x,y,40,0,2*Math.PI,true);
-    ctx.stroke();
-};
-
-clear();
-drawPlayer(0,0);
-drawBackground(ctx, width, height, step);
+var code = setInterval(function(){ /*Uses var code so we can have a kill button */
+    eval(ucode) /*users code*/
+    
+ }, 1000/fps); /*set framerate*/
 
