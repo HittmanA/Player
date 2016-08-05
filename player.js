@@ -10,6 +10,10 @@ function Sprite(name, x, y,direction) {
     this.walk = function(steps) { /*walking in the direction the sprite is facing*/
         this.x=(this.x+(Math.sin(this.direction)*steps));/*x for walking*/
         this.y=(this.y+(Math.cos(this.direction)*steps));/*y for walking*/
+        return { /*returns the new x and y in a object */
+            x:this.x,
+            y:this.y
+        }
         
     };
     this.turn = function(degrees) {
@@ -20,6 +24,7 @@ function Sprite(name, x, y,direction) {
         if (this.direction<0) {
             this.direction=0;
         }
+        return this.direction; /*returns the direction*/
     }
 }
 
