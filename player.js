@@ -1,6 +1,7 @@
 var canvas = document.getElementById('canvas'); /*define canvas*/
 var ctx = canvas.getContext('2d'); /*make 2d canvas*/
 var fps=25; /*frames per seconds*/
+var ucode; /* Var that will hold users code */
 var sprites = {}; /* An Object for all the sprites. Just trust me on the whole object thing please*/
 function Sprite(name, x, y,direction) {
     this.name = name;
@@ -14,20 +15,20 @@ function Sprite(name, x, y,direction) {
             x:this.x,
             y:this.y
         }
-        
+
     };
     this.turn = function(degrees) {
         this.direction = this.direction + degrees; /*Turn Sprite*/
         while (this.direction>360) {
-            this.direction = this.direction - 360
+            this.direction = this.direction - 360 /* Make sure direction is not greater than 360 */
         }
         if (this.direction<0) {
-            this.direction=0;
+            this.direction=0; /* Make sure direction is not less than 0 */
         }
         return this.direction; /*returns the direction*/
     };
     this.pointTo=function(x,y){
-      this.direction=(Math.atan2(x - this.x, y - this.y))* (180 / Math.PI); /*Math to point*/
+      this.direction=(Math.atan2(x - this.x, y - this.y))* (180 / Math.PI); /* Math to point*/
       return this.direction /* return new direction */
     };
 }
@@ -46,6 +47,5 @@ onload();/*run onload(); which will be a user command.*/
 
 var code = setInterval(function(){ /*Uses var code so we can have a kill button */
     eval(ucode) /*users code*/
-    
- }, 1000/fps); /*set framerate*/
 
+ }, 1000/fps); /*set framerate*/
