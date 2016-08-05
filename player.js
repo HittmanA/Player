@@ -1,39 +1,61 @@
-var canvas = document.getElementById('canvas');
-var ctx = canvas.getContext('2d');
-var width = canvas.width;
-var height = canvas.height;
-var step = 20; 
-var canvasElementId = 'canvas';
-var canvas = document.getElementById(canvasElementId);
-canvas.width  = w;
-canvas.height = h;
-var ctx = canvas.getContext('2d');
+var canvas = document.getElementById('canvas'); /*define canvas*/
+var ctx = canvas.getContext('2d'); /*make 2d canvas*/
+var fps=25; /*frames per seconds*/
+var ucode; /* Var that will hold users code */
+var errorcode; /* Errorcode reported to the user */
+var sprites = {}; /* An Object for all the sprites. Just trust me on the whole object thing please*/
+function Sprite(name, x, y,w,h,direction) {
+    this.name = name;
+    this.x = x;
+    this.width=w;
+    this.height=h;
+    this.y = y;
+    this.direction=direction;
+    this.walk = function(steps) { /*walking in the direction the sprite is facing*/
+        this.x=(this.x+(Math.sin(this.direction)*steps));/*x for walking*/
+        this.y=(this.y+(Math.cos(this.direction)*steps));/*y for walking*/
+        return { /*returns the new x and y in a object */
+            x:this.x,
+            y:this.y
+        }
 
-var drawBackground = function(ctx, w, h, step) {
-    ctx.beginPath(); 
-    for (var x=0;x<=w;x+=step) {
-            ctx.moveTo(x, 0);
-            ctx.lineTo(x, h);
-    }
-    for (var y=0;y<=h;y+=step) {
-            ctx.moveTo(0, y);
-            ctx.lineTo(w, y);
-    }
-    ctx.stroke(); 
+    };
+    this.turn = function(degrees) {
+        this.direction = this.direction + degrees; /*Turn Sprite*/
+        while (this.direction>360) {
+            this.direction = this.direction - 360 /* Make sure direction is not greater than 360 */
+        }
+        if (this.direction<0) {
+            this.direction=0; /* Make sure direction is not less than 0 */
+        }
+        return this.direction; /*returns the direction*/
+    };
+    this.pointTo=function(x,y){
+      this.direction=(Math.atan2(x - this.x, y - this.y))* (180 / Math.PI); /* Math to point*/
+      return this.direction /* return new direction */
+    };
+}
 
-};
+function makeSprite(name, x, y,direction){
+    sprites[name]= new Sprite(name, x, y,direction); /* Add spirtes*/
+}
 
-var clear = function() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-};
+/*
 
-var drawPlayer = function(x, y) {
-    ctx.beginPath();
-    ctx.arc(x,y,40,0,2*Math.PI,true);
-    ctx.stroke();
-};
+Code to load users codes.
 
-clear();
-drawPlayer(0,0);
-drawBackground(ctx, width, height, step);
+*/
 
+onload();/*run onload(); which will be a user command.*/
+
+var code = setInterval(function(){ /*Uses var code so we can have a kill button */
+  try {
+    eval(ucode) /*users code*/
+  }
+  catch(err) {
+    errorcode=err; /* Send error to client */
+    clearInterval(code); /* Stop code from running */
+  }
+
+
+ }, 1000/fps); /*set framerate*/
