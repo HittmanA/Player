@@ -14,6 +14,12 @@ function Sprite(name, x, y,direction) {
     };
     this.turn = function(degrees) {
         this.direction = this.direction + degrees; /*Turn Sprite*/
+        while (this.direction>360) {
+            this.direction = this.direction - 360
+        }
+        if (this.direction<0) {
+            this.direction=0;
+        }
     }
 }
 
