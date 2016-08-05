@@ -20,6 +20,9 @@ function Sprite(name, x, y,direction) {
     };
     this.turn = function(degrees) {
         this.direction = (this.direction + degrees)%360; /*Turn Sprite*/
+        if (this.direction<0){
+            this.direction=0;
+        }
         return this.direction; /*returns the direction*/
     };
     this.pointTo=function(x,y){
