@@ -1,7 +1,7 @@
 var canvas = document.getElementById('canvas'); /*define canvas*/
 var ctx = canvas.getContext('2d'); /*make 2d canvas*/
 var fps=25; /*frames per seconds*/
-var sprites = []; /* An Array for all the sprites*/
+var sprites = {}; /* An Object for all the sprites. Just trust me on the whole object thing please*/
 function Sprite(name, x, y,direction) {
     this.name = name;
     this.x = x;
@@ -13,6 +13,11 @@ function Sprite(name, x, y,direction) {
         
     };
 }
+
+function makeSprite(name, x, y,direction){
+    sprites[name]= new Sprite(name, x, y,direction); /* Add spirtes*/
+}
+
 /*
 
 Code to load users codes.
