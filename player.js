@@ -12,6 +12,9 @@ function Sprite(name, x, y,direction) {
         this.y=(this.y+(Math.cos(this.direction)*steps));/*y for walking*/
         
     };
+    this.turn = function(degrees) {
+        this.direction = this.direction + degrees; /*Turn Sprite*/
+    }
 }
 
 function makeSprite(name, x, y,direction){
