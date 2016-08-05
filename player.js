@@ -27,8 +27,8 @@ function Sprite(name, x, y,direction) {
         return this.direction; /*returns the direction*/
     };
     this.pointTo=function(x,y){
-      this.direction=(Math.atan2(x - this.x, y - this.y))* (180 / Math.PI);
-      return this.direction
+      this.direction=(Math.atan2(x - this.x, y - this.y))* (180 / Math.PI); /*Math to point*/
+      return this.direction /* return new direction */
     };
 }
 
